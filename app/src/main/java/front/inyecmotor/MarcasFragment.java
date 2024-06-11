@@ -7,11 +7,11 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-public class SignupTabFragment extends Fragment {
+public class MarcasFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.signup_tab_fragment, container, false);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.marcas_fragment, container, false);
 
         return root;
     }
