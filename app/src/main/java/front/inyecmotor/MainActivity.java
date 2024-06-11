@@ -5,16 +5,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,11 +22,11 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnItemSelectedListener{
 
     private static final int POS_CLOSE = 0;
-    private static final int POS_DASHBOARD = 1;
-    private static final int POS_MY_PROFILE = 2;
-    private static final int POS_NEARBY_RES = 3;
-    private static final int POS_SETTINGS = 4;
-    private static final int POS_ABOUT_US = 5;
+    private static final int POS_MENU_PRINCIPAL = 1;
+    private static final int POS_PRODUCTOS = 2;
+    private static final int POS_PROVEEDORES = 3;
+    private static final int POS_MODELOS = 4;
+    private static final int POS_MARCAS = 5;
     private static final int POS_LOGOUT = 7;
 
     private String[] screenTitles;
@@ -64,11 +59,11 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
 
         DrawerAdapter adapter = new DrawerAdapter(Arrays.asList(
                 createItemFor(POS_CLOSE),
-                createItemFor(POS_DASHBOARD).setChecked(true),
-                createItemFor(POS_MY_PROFILE),
-                createItemFor(POS_NEARBY_RES),
-                createItemFor(POS_SETTINGS),
-                createItemFor(POS_ABOUT_US),
+                createItemFor(POS_MENU_PRINCIPAL).setChecked(true),
+                createItemFor(POS_PRODUCTOS),
+                createItemFor(POS_PROVEEDORES),
+                createItemFor(POS_MODELOS),
+                createItemFor(POS_MARCAS),
                 new SpaceItem(260),
                 createItemFor(POS_LOGOUT)
         ));
@@ -79,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(adapter);
 
-        adapter.setSelected(POS_DASHBOARD);
+        adapter.setSelected(POS_MENU_PRINCIPAL);
 
     }
 
@@ -124,29 +119,29 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     public void onItemSelected(int position) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        if (position == POS_DASHBOARD){
-            DashBoardFragment dashBoardFragment = new DashBoardFragment();
-            transaction.replace(R.id.container, dashBoardFragment);
+        if (position == POS_MENU_PRINCIPAL){
+            MenuPrincipalFragment menuPrincipalFragment = new MenuPrincipalFragment();
+            transaction.replace(R.id.container, menuPrincipalFragment);
         }
 
-        else if (position == POS_MY_PROFILE){
-            MyProfileFragment myProfileFragment = new MyProfileFragment();
-            transaction.replace(R.id.container, myProfileFragment);
+        else if (position == POS_PRODUCTOS){
+            ProductosFragment productosFragment = new ProductosFragment();
+            transaction.replace(R.id.container, productosFragment);
         }
 
-        else if (position == POS_NEARBY_RES){
-            NearbyResFragment nearbyResFragment = new NearbyResFragment();
-            transaction.replace(R.id.container, nearbyResFragment);
+        else if (position == POS_PROVEEDORES){
+            ProveedoresFragment proveedoresFragment = new ProveedoresFragment();
+            transaction.replace(R.id.container, proveedoresFragment);
         }
 
-        else if (position == POS_SETTINGS){
-            SettingsFragment settingsFragment = new SettingsFragment();
-            transaction.replace(R.id.container, settingsFragment);
+        else if (position == POS_MODELOS){
+            ModelosFragment modelosFragment = new ModelosFragment();
+            transaction.replace(R.id.container, modelosFragment);
         }
 
-        else if (position == POS_ABOUT_US){
-            AboutUsFragment aboutUsFragment = new AboutUsFragment();
-            transaction.replace(R.id.container, aboutUsFragment);
+        else if (position == POS_MARCAS){
+            MarcasFragment marcasFragment = new MarcasFragment();
+            transaction.replace(R.id.container, marcasFragment);
         }
 
         else if (position == POS_LOGOUT){
