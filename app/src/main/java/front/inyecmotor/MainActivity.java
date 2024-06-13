@@ -19,7 +19,7 @@ import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnItemSelectedListener {
 
     private static final int POS_CLOSE = 0;
     private static final int POS_MENU_PRINCIPAL = 1;
@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     private String[] screenTitles;
     private Drawable[] screenIcons;
     private SlidingRootNav slidingRootNav;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +74,10 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         list.setAdapter(adapter);
 
         adapter.setSelected(POS_MENU_PRINCIPAL);
-
     }
 
-
-
-    private DrawerItem createItemFor(int position){
-        return new SimpleItem(screenIcons[position],screenTitles[position])
+    private DrawerItem createItemFor(int position) {
+        return new SimpleItem(screenIcons[position], screenTitles[position])
                 .withIconTint(color(R.color.red))
                 .withTextTint(color(R.color.black))
                 .withSelectedIconTint(color(R.color.red))
@@ -89,9 +85,10 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     }
 
     @ColorInt
-    private int color(@ColorRes int res){
+    private int color(@ColorRes int res) {
         return ContextCompat.getColor(this, res);
     }
+
     private String[] loadScreenTitles() {
         return getResources().getStringArray(R.array.id_activityScreenTitles);
     }
@@ -99,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     private Drawable[] loadScreenIcons() {
         TypedArray ta = getResources().obtainTypedArray(R.array.id_activityScreenIcons);
         Drawable[] icons = new Drawable[ta.length()];
-        for(int i = 0; i < ta.length(); i++) {
+        for (int i = 0; i < ta.length(); i++) {
             int id = ta.getResourceId(i, 0);
             if (id != 0) {
                 icons[i] = ContextCompat.getDrawable(this, id);
@@ -119,38 +116,27 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     public void onItemSelected(int position) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        if (position == POS_MENU_PRINCIPAL){
+        if (position == POS_MENU_PRINCIPAL) {
             MenuPrincipalFragment menuPrincipalFragment = new MenuPrincipalFragment();
             transaction.replace(R.id.container, menuPrincipalFragment);
-        }
-
-        else if (position == POS_PRODUCTOS){
+        } else if (position == POS_PRODUCTOS) {
             ProductosFragment productosFragment = new ProductosFragment();
             transaction.replace(R.id.container, productosFragment);
-        }
-
-        else if (position == POS_PROVEEDORES){
+        } else if (position == POS_PROVEEDORES) {
             ProveedoresFragment proveedoresFragment = new ProveedoresFragment();
             transaction.replace(R.id.container, proveedoresFragment);
-        }
-
-        else if (position == POS_MODELOS){
+        } else if (position == POS_MODELOS) {
             ModelosFragment modelosFragment = new ModelosFragment();
             transaction.replace(R.id.container, modelosFragment);
-        }
-
-        else if (position == POS_MARCAS){
+        } else if (position == POS_MARCAS) {
             MarcasFragment marcasFragment = new MarcasFragment();
             transaction.replace(R.id.container, marcasFragment);
-        }
-
-        else if (position == POS_LOGOUT){
+        } else if (position == POS_LOGOUT) {
             finish();
         }
 
         slidingRootNav.closeMenu();
         transaction.addToBackStack(null);
         transaction.commit();
-
     }
 }
