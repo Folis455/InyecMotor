@@ -2,25 +2,37 @@ package front.inyecmotor;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.io.IOException;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder> {
     private List<Producto> productos;
     private Context context;
+    private static final String BASE_URL = "http://192.168.0.8:8080"; // Cambia a la URL de tu servidor
+    private static final String TAG = "ProductoAdapter"; // Tag para los logs
 
     public ProductoAdapter(List<Producto> productos, Context context) {
         this.productos = productos;
         this.context = context;
     }
-
 
     @NonNull
     @Override
@@ -80,11 +92,16 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         etStockActual.setText(String.valueOf(producto.getStockActual()));
 
         builder.setPositiveButton("Guardar", (dialog, which) -> {
-            // Guardar cambios del producto
+            // Actualizar el objeto producto con los valores del EditText
             producto.setNombre(etNombre.getText().toString());
             producto.setPrecioCosto(Double.parseDouble(etPrecioCosto.getText().toString()));
             producto.setPrecioVenta(Double.parseDouble(etPrecioVenta.getText().toString()));
             producto.setStockActual(Integer.parseInt(etStockActual.getText().toString()));
+
+            // Enviar los datos editados al servidor
+            enviarDatosProducto(producto);
+
+            // Notificar al adaptador que los datos han cambiado
             notifyDataSetChanged();
         });
 
@@ -92,4 +109,42 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
 
         builder.show();
     }
+
+    private void enviarDatosProducto(Producto producto) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+        Call<Producto> call = apiService.editarProducto(producto);
+
+        call.enqueue(new Callback<Producto>() {
+            @Override
+            public void onResponse(Call<Producto> call, Response<Producto> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(context, "Producto actualizado correctamente", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Error al actualizar el producto", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "Response Code: " + response.code());
+                    Log.d(TAG, "Response Message: " + response.message());
+                    if (response.errorBody() != null) {
+                        try {
+                            Log.d(TAG, "Error Body: " + response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Producto> call, Throwable t) {
+                Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
+    }
+
+
 }

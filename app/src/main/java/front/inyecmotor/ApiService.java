@@ -12,8 +12,7 @@ public interface ApiService {
     @GET("/producto/all") // La ruta de tu endpoint en el servidor Spring Boot
     Call<List<Producto>> getProductos();
 
-    @PATCH("/producto/editar/{id}")
-    Call<Producto> editarProducto(@Path("id") int id, @Body Producto producto);
-
+    @PATCH("/producto/editar")
+    Call<Producto> editarProducto(@Body Producto producto);
 }
 
