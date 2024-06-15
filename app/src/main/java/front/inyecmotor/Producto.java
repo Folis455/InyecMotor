@@ -1,6 +1,9 @@
 package front.inyecmotor;
 
-public class Producto {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Producto implements Parcelable {
     private int id;
     private int codigo;
     private String nombre;
@@ -9,7 +12,6 @@ public class Producto {
     private int stockActual;
     private int stockMax;
     private int stockMin;
-    // Otros campos...
 
     // Constructor vacío (puede ser útil para algunas operaciones)
     public Producto() {
@@ -27,8 +29,19 @@ public class Producto {
         this.stockMin = stockMin;
     }
 
-    // Getters y setters para todos los campos
+    // Constructor para Parcel
+    protected Producto(Parcel in) {
+        id = in.readInt();
+        codigo = in.readInt();
+        nombre = in.readString();
+        precioCosto = in.readDouble();
+        precioVenta = in.readDouble();
+        stockActual = in.readInt();
+        stockMax = in.readInt();
+        stockMin = in.readInt();
+    }
 
+    // Getters y setters para todos los campos
     public int getId() {
         return id;
     }
@@ -108,4 +121,34 @@ public class Producto {
                 ", stockMin=" + stockMin +
                 '}';
     }
+
+    // Métodos de Parcelable
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeInt(id);
+        parcel.writeInt(codigo);
+        parcel.writeString(nombre);
+        parcel.writeDouble(precioCosto);
+        parcel.writeDouble(precioVenta);
+        parcel.writeInt(stockActual);
+        parcel.writeInt(stockMax);
+        parcel.writeInt(stockMin);
+    }
+
+    public static final Creator<Producto> CREATOR = new Creator<Producto>() {
+        @Override
+        public Producto createFromParcel(Parcel in) {
+            return new Producto(in);
+        }
+
+        @Override
+        public Producto[] newArray(int size) {
+            return new Producto[size];
+        }
+    };
 }

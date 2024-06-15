@@ -1,5 +1,6 @@
 package front.inyecmotor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -56,16 +58,14 @@ public class ProductosFragment extends Fragment {
             public void onResponse(Call<List<Producto>> call, Response<List<Producto>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Producto> productos = response.body();
-                    StringBuilder toastMessage = new StringBuilder();
-                    for (Producto producto : productos) {
-                        toastMessage.append("ID: ").append(producto.getId())
-                                .append(", Nombre: ").append(producto.getNombre())
-                                .append(", Precio: ").append(producto.getPrecioCosto())
-                                .append("\n");
-                    }
-                    Toast.makeText(getContext(), toastMessage.toString(), Toast.LENGTH_LONG).show();
+
+                    // Abre la actividad de productos y pasa la lista de productos
+                    Intent intent = new Intent(getActivity(), ProductosActivity.class);
+                    intent.putParcelableArrayListExtra("productos", new ArrayList<>(productos));
+                    startActivity(intent);
+
                 } else {
-                    Toast.makeText(getContext(), "Respuesta no exitosa", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Respuesta unsuccessful!", Toast.LENGTH_SHORT).show();
                     Log.d("HTTP Status Code", "Code: " + response.code());
                     Log.d("HTTP Response", "Response Code: " + response.code() + ", Message: " + response.message());
                 }
