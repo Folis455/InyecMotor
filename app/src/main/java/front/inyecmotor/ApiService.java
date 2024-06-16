@@ -14,5 +14,23 @@ public interface ApiService {
 
     @PATCH("/producto/editar")
     Call<Producto> editarProducto(@Body Producto producto);
+
+    @GET("/marca/all")
+    Call<List<Marca>> getMarcas();
+
+    @PATCH("/marca/editar")
+    Call<Marca> editarMarca(@Body Marca marca);
+
+    @GET("/modelos/all")
+    Call<List<Modelo>> getModelos();
+
+    @PATCH("/modelo/editar")
+    Call<Modelo> editarModelo(@Body Modelo modelo);
+
+    @GET("/proveedor")
+    Call<List<Proveedor>> getProveedores();
+
+    @PATCH("/proveedor/editar")
+    Call<Proveedor> editarProveedor(@Body Proveedor proveedor);
 }
 
