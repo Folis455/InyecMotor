@@ -1,4 +1,4 @@
-package front.inyecmotor;
+package front.inyecmotor.expandirBarrita;
 
 import android.view.ViewGroup;
 
