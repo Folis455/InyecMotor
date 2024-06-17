@@ -96,7 +96,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
 
         // Setear valores iniciales del producto
         etNombre.setText(producto.getNombre());
-        etCodigo.setText(String.valueOf(producto.getCodigo()));
+        etCodigo.setText(producto.getCodigo());
         etPrecioCosto.setText(String.valueOf(producto.getPrecioCosto()));
         etPrecioVenta.setText(String.valueOf(producto.getPrecioVenta()));
         etStockActual.setText(String.valueOf(producto.getStockActual()));
@@ -106,7 +106,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         builder.setPositiveButton("Guardar", (dialog, which) -> {
             // Actualizar el objeto producto con los valores del EditText
             producto.setNombre(etNombre.getText().toString());
-            producto.setCodigo(Integer.parseInt(etCodigo.getText().toString()));
+            producto.setCodigo(etCodigo.getText().toString());
             producto.setPrecioCosto(Double.parseDouble(etPrecioCosto.getText().toString()));
             producto.setPrecioVenta(Double.parseDouble(etPrecioVenta.getText().toString()));
             producto.setStockActual(Integer.parseInt(etStockActual.getText().toString()));
