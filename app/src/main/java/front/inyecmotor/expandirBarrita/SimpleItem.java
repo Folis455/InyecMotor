@@ -1,4 +1,4 @@
-package front.inyecmotor;
+package front.inyecmotor.expandirBarrita;
 
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+
+import front.inyecmotor.R;
 
 public class SimpleItem extends DrawerItem<SimpleItem.ViewHolder> {
 

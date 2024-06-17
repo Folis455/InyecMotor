@@ -2,11 +2,14 @@ package front.inyecmotor;
 
 import java.util.List;
 
+import front.inyecmotor.marcas.Marca;
+import front.inyecmotor.modelos.Modelo;
+import front.inyecmotor.productos.Producto;
+import front.inyecmotor.proveedores.Proveedor;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
-import retrofit2.http.Path;
 
 public interface ApiService {
     @GET("/producto/all") // La ruta de tu endpoint en el servidor Spring Boot
@@ -21,13 +24,13 @@ public interface ApiService {
     @PATCH("/marca/editar")
     Call<Marca> editarMarca(@Body Marca marca);
 
-    @GET("/modelos/all")
+    @GET("/modelo/all")
     Call<List<Modelo>> getModelos();
 
     @PATCH("/modelo/editar")
     Call<Modelo> editarModelo(@Body Modelo modelo);
 
-    @GET("/proveedor")
+    @GET("/proveedor/all")
     Call<List<Proveedor>> getProveedores();
 
     @PATCH("/proveedor/editar")

@@ -1,4 +1,4 @@
-package front.inyecmotor;
+package front.inyecmotor.productos;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.io.IOException;
 import java.util.List;
 
+import front.inyecmotor.ApiService;
+import front.inyecmotor.R;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,7 +39,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
     @NonNull
     @Override
     public ProductoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_producto, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.productos_item, parent, false);
         return new ProductoViewHolder(view);
     }
 
@@ -46,6 +48,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         Producto producto = productos.get(position);
         holder.tvProductoNombre.setText(producto.getNombre());
         holder.tvProductoPrecio.setText("Precio: $" + producto.getPrecioCosto());
+        holder.tvProductoStock.setText("Stock: " + producto.getStockActual());
 
         holder.btnVerDetalle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,12 +66,15 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
     public class ProductoViewHolder extends RecyclerView.ViewHolder {
         TextView tvProductoNombre;
         TextView tvProductoPrecio;
+
+        TextView tvProductoStock;
         Button btnVerDetalle;
 
         public ProductoViewHolder(@NonNull View itemView) {
             super(itemView);
             tvProductoNombre = itemView.findViewById(R.id.tvProductoNombre);
             tvProductoPrecio = itemView.findViewById(R.id.tvProductoPrecio);
+            tvProductoStock = itemView.findViewById(R.id.tvProductoStock);
             btnVerDetalle = itemView.findViewById(R.id.btnVerDetalle);
         }
     }
@@ -77,26 +83,35 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Detalles del Producto");
 
-        View viewInflated = LayoutInflater.from(context).inflate(R.layout.dialogo_detalle_producto, null);
+        View viewInflated = LayoutInflater.from(context).inflate(R.layout.productos_detalle, null);
         builder.setView(viewInflated);
 
         EditText etNombre = viewInflated.findViewById(R.id.etNombre);
+        EditText etCodigo = viewInflated.findViewById(R.id.etCodigo);
         EditText etPrecioCosto = viewInflated.findViewById(R.id.etPrecioCosto);
         EditText etPrecioVenta = viewInflated.findViewById(R.id.etPrecioVenta);
         EditText etStockActual = viewInflated.findViewById(R.id.etStockActual);
+        EditText etStockMax = viewInflated.findViewById(R.id.etStockMax);
+        EditText etStockMin = viewInflated.findViewById(R.id.etStockMin);
 
         // Setear valores iniciales del producto
         etNombre.setText(producto.getNombre());
+        etCodigo.setText(String.valueOf(producto.getCodigo()));
         etPrecioCosto.setText(String.valueOf(producto.getPrecioCosto()));
         etPrecioVenta.setText(String.valueOf(producto.getPrecioVenta()));
         etStockActual.setText(String.valueOf(producto.getStockActual()));
+        etStockMax.setText(String.valueOf(producto.getStockMax()));
+        etStockMin.setText(String.valueOf(producto.getStockMin()));
 
         builder.setPositiveButton("Guardar", (dialog, which) -> {
             // Actualizar el objeto producto con los valores del EditText
             producto.setNombre(etNombre.getText().toString());
+            producto.setCodigo(Integer.parseInt(etCodigo.getText().toString()));
             producto.setPrecioCosto(Double.parseDouble(etPrecioCosto.getText().toString()));
             producto.setPrecioVenta(Double.parseDouble(etPrecioVenta.getText().toString()));
             producto.setStockActual(Integer.parseInt(etStockActual.getText().toString()));
+            producto.setStockMax(Integer.parseInt(etStockMax.getText().toString()));
+            producto.setStockMin(Integer.parseInt(etStockMin.getText().toString()));
 
             // Enviar los datos editados al servidor
             enviarDatosProducto(producto);

@@ -1,4 +1,4 @@
-package front.inyecmotor;
+package front.inyecmotor.marcas;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.io.IOException;
 import java.util.List;
 
+import front.inyecmotor.ApiService;
+import front.inyecmotor.R;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,7 +39,7 @@ public class MarcaAdapter extends RecyclerView.Adapter<MarcaAdapter.MarcaViewHol
     @NonNull
     @Override
     public MarcaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_marca, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.marcas_item, parent, false);
         return new MarcaViewHolder(view);
     }
 
@@ -74,7 +76,7 @@ public class MarcaAdapter extends RecyclerView.Adapter<MarcaAdapter.MarcaViewHol
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Detalles de la Marca");
 
-        View viewInflated = LayoutInflater.from(context).inflate(R.layout.dialogo_detalle_marca, null);
+        View viewInflated = LayoutInflater.from(context).inflate(R.layout.marcas_detalle, null);
         builder.setView(viewInflated);
 
         EditText etNombre = viewInflated.findViewById(R.id.etNombre);

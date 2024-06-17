@@ -1,4 +1,4 @@
-package front.inyecmotor;
+package front.inyecmotor.marcas;
 
 import android.os.Bundle;
 
@@ -8,23 +8,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class ProveedoresActivity extends AppCompatActivity {
+import front.inyecmotor.R;
+
+public class MarcasActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_proveedores);
+        setContentView(R.layout.marcas_activity);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Obtén la lista de proveedores de la intención
-        List<Proveedor> proveedores = getIntent().getParcelableArrayListExtra("proveedores");
+        // Obtén la lista de marcas de la intención
+        List<Marca> marcas = getIntent().getParcelableArrayListExtra("marcas");
 
         // Configura el adaptador
-        ProveedorAdapter adapter = new ProveedorAdapter(proveedores, this);
+        MarcaAdapter adapter = new MarcaAdapter(marcas, this);
 
         recyclerView.setAdapter(adapter);
     }

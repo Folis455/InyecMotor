@@ -1,9 +1,11 @@
-package front.inyecmotor;
+package front.inyecmotor.proveedores;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.List;
+
+import front.inyecmotor.productos.Producto;
 
 public class Proveedor implements Parcelable {
     private int id;

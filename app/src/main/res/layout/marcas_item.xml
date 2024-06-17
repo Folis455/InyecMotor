@@ -6,23 +6,14 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/tvProveedorNombre"
+        android:id="@+id/tvMarcaNombre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:text="Nombre de la Marca"
         android:textSize="18sp"
-        android:text="Nombre del Proveedor"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnVerDetalle" />
-
-    <TextView
-        android:id="@+id/tvProveedorDireccion"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:text="Dirección del Proveedor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvProveedorNombre"
         app:layout_constraintEnd_toStartOf="@id/btnVerDetalle" />
 
     <Button

@@ -1,4 +1,6 @@
-package front.inyecmotor;
+package front.inyecmotor.modelos;
+
+import android.os.Bundle;
 
 import android.os.Bundle;
 
@@ -8,24 +10,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class MarcasActivity extends AppCompatActivity {
+import front.inyecmotor.R;
+
+public class ModelosActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_marcas);
+        setContentView(R.layout.modelos_activity);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Obtén la lista de marcas de la intención
-        List<Marca> marcas = getIntent().getParcelableArrayListExtra("marcas");
+        // Obtén la lista de modelos pasada por el Intent
+        List<Modelo> modelos = getIntent().getParcelableArrayListExtra("modelos");
 
-        // Configura el adaptador
-        MarcaAdapter adapter = new MarcaAdapter(marcas, this);
-
+        // Configura el adaptador del RecyclerView
+        ModeloAdapter adapter = new ModeloAdapter(modelos, this);
         recyclerView.setAdapter(adapter);
     }
 }

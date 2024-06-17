@@ -19,6 +19,15 @@ import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import java.util.Arrays;
 
+import front.inyecmotor.expandirBarrita.DrawerAdapter;
+import front.inyecmotor.expandirBarrita.DrawerItem;
+import front.inyecmotor.expandirBarrita.SimpleItem;
+import front.inyecmotor.expandirBarrita.SpaceItem;
+import front.inyecmotor.marcas.MarcasFragment;
+import front.inyecmotor.modelos.ModelosFragment;
+import front.inyecmotor.productos.ProductosFragment;
+import front.inyecmotor.proveedores.ProveedoresFragment;
+
 public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnItemSelectedListener {
 
     private static final int POS_CLOSE = 0;

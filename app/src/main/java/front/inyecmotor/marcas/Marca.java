@@ -1,4 +1,4 @@
-package front.inyecmotor;
+package front.inyecmotor.marcas;
 
 import android.os.Parcel;
 import android.os.Parcelable;
