@@ -3,6 +3,7 @@ package front.inyecmotor.productos;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,5 +30,19 @@ public class ProductosActivity extends AppCompatActivity {
         ProductoAdapter adapter = new ProductoAdapter(productos, this); // Paso el contexto this
 
         recyclerView.setAdapter(adapter);
+        // Configura el botón de "Volver" en la Toolbar
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
