@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class Producto implements Parcelable {
     private int id;
-    private int codigo;
+    private String codigo;
     private String nombre;
     private double precioCosto; // Cambiado a double para manejar precisión en precios
     private double precioVenta; // Cambiado a double para manejar precisión en precios
@@ -18,7 +18,7 @@ public class Producto implements Parcelable {
     }
 
     // Constructor con parámetros para inicializar todos los campos
-    public Producto(int id, int codigo, String nombre, double precioCosto, double precioVenta, int stockActual, int stockMax, int stockMin) {
+    public Producto(int id, String codigo, String nombre, double precioCosto, double precioVenta, int stockActual, int stockMax, int stockMin) {
         this.id = id;
         this.codigo = codigo;
         this.nombre = nombre;
@@ -32,7 +32,7 @@ public class Producto implements Parcelable {
     // Constructor para Parcel
     protected Producto(Parcel in) {
         id = in.readInt();
-        codigo = in.readInt();
+        codigo = in.readString();
         nombre = in.readString();
         precioCosto = in.readDouble();
         precioVenta = in.readDouble();
@@ -50,11 +50,11 @@ public class Producto implements Parcelable {
         this.id = id;
     }
 
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
@@ -131,7 +131,7 @@ public class Producto implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeInt(id);
-        parcel.writeInt(codigo);
+        parcel.writeString(codigo);
         parcel.writeString(nombre);
         parcel.writeDouble(precioCosto);
         parcel.writeDouble(precioVenta);

@@ -40,8 +40,7 @@
                 android:id="@+id/etCodigo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Código del Producto"
-                android:inputType="number"/>
+                android:hint="Código del Producto" />
         </LinearLayout>
 
         <LinearLayout
